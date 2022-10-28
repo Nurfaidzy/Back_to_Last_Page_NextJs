@@ -4,10 +4,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import axios from "axios";
 import Link from "next/link";
-
-export default function Home(props) {
-  const nomor = props;
-  var final = Math.ceil(nomor.nomor / 10);
+import { withRouter } from "next/router";
+const Home = withRouter((props) => {
+  const nomor = props.router.query.row;
+  var final = Math.ceil(nomor / 10);
   var akhir = final;
   isNaN(final) ? (akhir = 1) : (akhir = final);
 
@@ -152,7 +152,9 @@ export default function Home(props) {
       key: "action",
       render: (record) => (
         <Space size="middle">
-          <Link href={`/Request/${record.id}`}>Request</Link>
+          <Link href={`/Request/?id=${record.id}&title=${record.title}`}>
+            Request
+          </Link>
         </Space>
       ),
     },
@@ -185,4 +187,6 @@ export default function Home(props) {
       ;
     </>
   );
-}
+});
+
+export default Home;
